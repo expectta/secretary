@@ -15,5 +15,6 @@ int main() {
 
     return EXIT_SUCCESS;
 }
-//두번째 코드
-//세번째 코드
+//system() 디렉토리 이동 후 명령어 사용
+system("cd /Users/kjw/Desktop/secretary/ && git status");
+
