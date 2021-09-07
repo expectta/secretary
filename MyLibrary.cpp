@@ -17,3 +17,6 @@ int main() {
 }
 //system() 디렉토리 이동 후 명령어 사용
 system("cd /Users/kjw/Desktop/secretary/ && git status");
+//vector<string> 배열에서 원하는 요소를 찾아 삭제
+readmeIndex = find(fileArray.begin(), fileArray.end(), "README.md") - fileArray.begin();
+fileArray.erase(fileArray.begin() + readmeIndex);
