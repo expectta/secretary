@@ -61,7 +61,7 @@ export function setupSwagger(app: INestApplication): void {
 function isEmpty(value) {
   return value.length === 0;
 }
-​//입력값의 길이제 대한 제한
+//입력값의 길이제 대한 제한
 function moreThanLength(str, n) {
   return str.length >= n;
 }
@@ -75,8 +75,26 @@ function strongPassword(str) {
     str
   );
 }
-​//핸드폰 번호
+//핸드폰 번호
 function isPhoneNumber(num) {
   return /^\d{3}-\d{3,4}-\d{4}$/.test(num);
 }
 
+//axios client request
+export const handleReqeust= async (
+  imageFile: any,
+  title: string,
+  content: string,
+) => {
+  axios.defaults.headers.common["authorization"] = JSON.parse(
+    localStorage.getItem("loginInfo")!,
+  ).accessToken;
+  const formData = new FormData();
+  formData.append("image", imageFile);
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    withCredentials: true,
+  };
+};
