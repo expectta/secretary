@@ -129,3 +129,17 @@ export const handleReqeust= async (
  //   dest: 'image/',
  // });
  module.exports = upload;
+
+// nestjs CORS 적용 
+const app = await NestFactory.create(AppModule);
+app.enableCors();
+await app.listen(3000);
+
+// nestjs CORS 설정
+{
+  "origin": "*",
+  "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+  "preflightContinue": false,
+  "optionsSuccessStatus": 204
+}
+
