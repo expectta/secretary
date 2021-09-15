@@ -143,3 +143,15 @@ await app.listen(3000);
   "optionsSuccessStatus": 204
 }
 
+
+//Javascript ES7 문법
+//거듭제곱
+var i = 2
+i **= 3 // 8이 출력됩니다.
+
+//includes 
+//3이 있는지 찾습니다.
+[1, 2, 3, 4, 5].includes(3) //true
+
+//1이 첫번째에 있는지 찾습니다.
+[1, 2, 3, 4, 5].includes(1, 0) //true
