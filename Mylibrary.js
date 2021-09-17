@@ -155,3 +155,19 @@ i **= 3 // 8이 출력됩니다.
 
 //1이 첫번째에 있는지 찾습니다.
 [1, 2, 3, 4, 5].includes(1, 0) //true
+
+
+//for in, for of 문
+const basket = ['apple', 'oranges', 'grapes'];
+for (item of basket) {
+  console.log(item);
+}
+const detailedBasket = {
+  apples: 5,
+  oranges: 10,
+  grapes: 1000
+}
+
+for (item in detailedBasket) {
+  console.log(item);
+}
