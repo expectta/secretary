@@ -172,5 +172,58 @@ const detailedBasket = {
 for (item in detailedBasket) {
   console.log(item);
 }
-//test
-//testCode
+
+//nestjs controller test Code
+import {
+  CACHE_MANAGER,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Query, Scope,
+  // UseGuards,
+  UseInterceptors
+} from "@nestjs/common";
+import { HistoryService } from "./history.service";
+
+// @ApiTags('history')
+@UseInterceptors(new TransformHeaderInterceptor())
+// @ApiBearerAuth()
+// @UseGuards(RequestGuard, AuthGuard)
+@Controller({
+  path: 'history',
+  scope: Scope.DEFAULT, // nestjs 공식 문서에 이거 관련 설명 읽어볼만하다
+})
+export class HistoryController extends BaseController {
+  constructor(
+    @Inject(CACHE_MANAGER)
+    private cacheManager: Cache,
+    private readonly historyService: HistoryService,
+  ) {
+    super();
+  }
+
+  @HttpCode(HttpStatus.OK) // 리턴하는 응답코드
+  // @ApiResponse({
+  //   status: HttpStatus.OK,
+  // }) //* Swagger에서 표시되는 응답코드
+  @ApiOperation({ summary: `유저의 모든 참여 이력을 가져온다.` }) // 이것도 스웨거
+  // @UserHeaderReceiptDecorator() // jwt 토큰 해석해서 유저 id 알아내는 건데 나도 잘 모름
+  // @CommonResponseReceiptDecorator() // 위에랑 비슷
+  @Get()
+  async getHistory(
+    @accountId() accountIdModel: AccountIdModel,
+    @Query() filterForHistory: FilterForHistoryDto,
+  ): Promise<HistoryResultDto> {
+    const cacheKey = `history.controller-${accountIdModel.accountId}-${JSON.stringify(filterForHistory)}`;
+
+    if (await this.cacheManager.get(cacheKey)) {
+      return this.cacheManager.get(cacheKey);
+    }
+
+    const history = await this.historyService.getHistory(accountIdModel.accountId, filterForHistory);
+    await this.cacheManager.set(cacheKey, history, 5);
+    return history;
+  }
+}
