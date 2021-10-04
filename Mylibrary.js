@@ -142,7 +142,15 @@ await app.listen(3000);
   "preflightContinue": false,
   "optionsSuccessStatus": 204
 }
-//test
+
+//entities code 생성 db -> typeorm(nestjs)
+## typeorm으로 데이터 베이스 내 entity 모두 가져오는 방법 ##
+npm i -g typeorm-model-generator 설치
+
+## 명령어
+typeorm-model-generator -h <database_host> -d <database>-p <port> -u <userId> -x <userPassword>! -e         <database종류>-o ../ <저장위치>
+
+다운로드가 완료되면 entities라는 파일로 저장 된다.
 
 
 //Javascript ES7 문법
